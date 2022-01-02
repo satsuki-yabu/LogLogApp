@@ -1,0 +1,21 @@
+# build : イメージ名がない場合、書かれているパスにあるDockerfile名を参考にしてイメージを構築
+
+version: "3"
+services:
+  api:
+    build: ./api/
+    ports:
+      - "3001:3001"
+    tty: true
+
+  front:
+    build: ./front/
+    ports:
+      - "3002:3002"
+    tty: true
+
+    db:
+      build: ./db/
+      # 名前付きボリューム。他のコンテナからも参照できる。
+      volumes:
+        - "db-data:/var/lib/mysql/data"
